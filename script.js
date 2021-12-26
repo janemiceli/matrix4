@@ -151,14 +151,14 @@ var M = {
         },
         insertCustomMessages: function (codeLength, message, column) {
             "use strict";
-            if (column %2 == 0){
+            //if (column %2 == 0){
                 for (var i = 1; i <= codeLength; i = i + 1) {
                     var reverseString = message.split('').reverse().join('');
                     M.codes[column][i] = reverseString.substring(i - 1, i);
                 }
-            }
+            //}
         },
-        randomMessage:function (codeLength, column, lettersLength, messageLengths)  {
+        randomMessage:function (codeLength, column, lettersLength, messageLengths){
             "use strict";
             if(messageLengths.includes(codeLength - 1)){
                 return;
@@ -173,30 +173,44 @@ var M = {
             var j, text, fadeStrength, codeLen = M.codes[i].length - 1, canvHeight = codeLen * M.settings.COL_HEIGHT, velocity = M.codes[i][0].velocity, strength = M.codes[i][0].strength, newCanv = document.createElement('canvas'), newCtx = newCanv.getContext('2d');
             newCanv.width = M.settings.COL_WIDTH;
             newCanv.height = canvHeight;
-            for (j = 1; j < codeLen; j += 1) {
-                text = M.codes[i][j];
-                newCtx.globalCompositeOperation = 'source-over';
-                newCtx.font = '30px matrix-code';
-                if (j < 5) {
-                    newCtx.shadowColor = 'hsla(' + colorrain + ', 79%, 72%)';
-                    newCtx.shadowOffsetX = 0;
-                    newCtx.shadowOffsetY = 0;
-                    newCtx.shadowBlur = 10;
-                    newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, ' + (100 - (j * 5)) + '%, ' + strength + ')';
-                } else if (j > (codeLen - 4)) {
-                    fadeStrength = j / codeLen;
-                    fadeStrength = 1 - fadeStrength;
-                    newCtx.shadowOffsetX = 0;
-                    newCtx.shadowOffsetY = 0;
-                    newCtx.shadowBlur = 0;
-                    newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + (fadeStrength + 0.3) + ')';
-                } else {
-                    newCtx.shadowOffsetX = 0;
-                    newCtx.shadowOffsetY = 0;
-                    newCtx.shadowBlur = 0;
-                    newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + strength + ')';
+            newCtx.shadowOffsetX = 0;
+            newCtx.shadowOffsetY = 0;
+            newCtx.shadowBlur = 0;
+            newCtx.globalCompositeOperation = 'source-over';
+            newCtx.font = '30px matrix-code';
+            if (i %2 == 1){
+                for (j = 1; j < codeLen; j += 1) {
+                    text = M.codes[i][j];
+                    if (j < 5) {
+                        newCtx.shadowColor = 'hsla(' + colorrain + ', 79%, 72%)';
+                        newCtx.shadowBlur = 5;
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, ' + (100 - (j * 5)) + '%, ' + strength + ')';
+                    } else if (j > (codeLen - 3)) {
+                        fadeStrength = j / codeLen;
+                        fadeStrength = 1 - fadeStrength;
+
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + (fadeStrength + 0.3) + ')';
+                    } else {
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + strength + ')';
+                    }
+                    newCtx.fillText(text, 0, (canvHeight - (j * M.settings.COL_HEIGHT)));
                 }
-                newCtx.fillText(text, 0, (canvHeight - (j * M.settings.COL_HEIGHT)));
+            }else{
+              for (j = codeLen; j > 1; j -= 1) {
+                    text = M.codes[i][j];
+                    if (j < (codeLen -3 ) ) {
+                        newCtx.shadowColor = 'hsla(' + colorrain + ', 79%, 74%, ' + strength + ')';
+                        newCtx.shadowBlur = 5;
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, ' + (j * 3) + '%, ' + strength + ')';
+                    } else if (j < 3) {
+                        fadeStrength =  (j / codeLen);
+                        fadeStrength =  fadeStrength;
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + (fadeStrength + 0.1) + ')';
+                    } else {
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 72%)';
+                    }
+                    newCtx.fillText(text, 0, (canvHeight - (j * M.settings.COL_HEIGHT)));
+                }
             }
             M.codes[i][0].canvas = newCanv;
         },
