@@ -1,7 +1,7 @@
 Matrix code rain
 ================
 
-**See live demo [here](https://janemiceli.github.io/matrix/)**
+**See live demo [here](https://janemiceli.github.io/matrix4/)**
 
 *Matrix* font is from [here](http://www.dafont.com/matrix-code-nfi.font).
 
