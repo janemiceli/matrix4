@@ -37,8 +37,6 @@ var M = {
         codesCounter: 0,
         init: function () {
             "use strict";
-            //M.c = document.getElementById('canvas');
-			//M.c = document.createElement('canvas');
             if (typeof(G_vmlCanvasManager) != 'undefined') {
                 M.c = G_vmlCanvasManager.initElement('canvas');
 			} else {
@@ -77,7 +75,6 @@ var M = {
         },
         loop: function () {
             "use strict";
-            //var requestAnimationFrame = function () { M.loop(); };
             M.animation = requestAnimationFrame(function () { M.loop(); });
             M.draw();
             //stats.update();
@@ -119,9 +116,7 @@ var M = {
         },
         createCode: function () {
             "use strict";
-
-                clearTimeout(M.createCodeLoop);
-   
+            clearTimeout(M.createCodeLoop);
             var randomInterval = M.randomFromInterval(0, 100), column = M.assignColumn(), codeLength = 0, i = 0, reverseString = "";
             if (column) {
                 var codeVelocity = (Math.random() * (M.settings.VELOCITY_PARAMS.max - M.settings.VELOCITY_PARAMS.min)) + M.settings.VELOCITY_PARAMS.min, lettersLength = M.letters.length, newLetter = 0;
@@ -132,9 +127,9 @@ var M = {
                     M.codes[column][0].velocity = codeVelocity;
                     M.codes[column][0].strength = M.codes[column][0].velocity / M.settings.VELOCITY_PARAMS.max;
                 }else{
-                    //M.codes[column][0].position = {'x': (column * M.settings.COL_WIDTH), 'y': 0};
-                    //M.codes[column][0].velocity = -codeVelocity;
-                    //M.codes[column][0].strength = (M.codes[column][0].velocity * -1) / M.settings.VELOCITY_PARAMS.max;
+                    M.codes[column][0].position = {'x': (column * M.settings.COL_WIDTH), 'y': 0};
+                    M.codes[column][0].velocity = -codeVelocity;
+                    M.codes[column][0].strength = (M.codes[column][0].velocity * -1) / M.settings.VELOCITY_PARAMS.max;
                 }
                 M.CheckArray(codeLength, messages, column, lettersLength)
                 M.createCanvii(column);
