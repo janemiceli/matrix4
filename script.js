@@ -1,4 +1,4 @@
-const messages = ["TIM", "ARIA","CONNOR", "JANE ", "MICELI "]
+const messages = ["TIM ", "ARIA ","CONNOR ", "JANE  ", "MICELI  "]
 
 var pinkrain = 0;
 var orangerain = 25
@@ -18,7 +18,7 @@ var M = {
                 max: 7
             },
             CODE_LENGTH_PARAMS: {
-                min: 4,
+                min: 3,
                 max: 20
             }
         },
@@ -151,12 +151,10 @@ var M = {
         },
         insertCustomMessages: function (codeLength, message, column) {
             "use strict";
-            //if (column %2 == 0){
-                for (var i = 1; i <= codeLength; i = i + 1) {
-                    var reverseString = message.split('').reverse().join('');
-                    M.codes[column][i] = reverseString.substring(i - 1, i);
-                }
-            //}
+            for (var i = 1; i <= codeLength; i = i + 1) {
+                var reverseString = message.split('').reverse().join('');
+                M.codes[column][i] = reverseString.substring(i - 1, i);
+            }
         },
         randomMessage:function (codeLength, column, lettersLength, messageLengths){
             "use strict";
@@ -181,14 +179,12 @@ var M = {
             if (i %2 == 1){
                 for (j = 1; j < codeLen; j += 1) {
                     text = M.codes[i][j];
-                    if (j < 5) {
+                    if (j < 3) {
                         newCtx.shadowColor = 'hsla(' + colorrain + ', 79%, 72%)';
-                        newCtx.shadowBlur = 5;
-                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, ' + (100 - (j * 5)) + '%, ' + strength + ')';
+                        newCtx.shadowBlur = 3;
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, ' + (100 - (j * 3)) + '%, ' + strength + ')';
                     } else if (j > (codeLen - 3)) {
-                        fadeStrength = j / codeLen;
-                        fadeStrength = 1 - fadeStrength;
-
+                        fadeStrength = 1 - (j / codeLen);
                         newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + (fadeStrength + 0.3) + ')';
                     } else {
                         newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + strength + ')';
@@ -199,15 +195,14 @@ var M = {
               for (j = codeLen; j > 1; j -= 1) {
                     text = M.codes[i][j];
                     if (j < (codeLen -3 ) ) {
-                        newCtx.shadowColor = 'hsla(' + colorrain + ', 79%, 74%, ' + strength + ')';
-                        newCtx.shadowBlur = 5;
+                        newCtx.shadowColor = 'hsla(' + colorrain + ', 79%, 72%)';
+                        newCtx.shadowBlur = 3;
                         newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, ' + (j * 3) + '%, ' + strength + ')';
                     } else if (j < 3) {
-                        fadeStrength =  (j / codeLen);
-                        fadeStrength =  fadeStrength;
-                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + (fadeStrength + 0.1) + ')';
+                        fadeStrength = 1 - (j / codeLen);
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + (fadeStrength + 0.3) + ')';
                     } else {
-                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 72%)';
+                        newCtx.fillStyle = 'hsla(' + colorrain + ', 79%, 74%, ' + strength + ')';
                     }
                     newCtx.fillText(text, 0, (canvHeight - (j * M.settings.COL_HEIGHT)));
                 }
@@ -275,7 +270,3 @@ window.onload = function () {
     "use strict";
     M.init();
 };
-window.OnLoad= function () {
-    "use strict";
-    M.init();
-}; 
