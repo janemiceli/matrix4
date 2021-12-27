@@ -6,7 +6,7 @@ Matrix code rain
 *Matrix* font is from [here](http://www.dafont.com/matrix-code-nfi.font).
 
 TO DO
-- In customer messages, only one string per character length is allowed for some reason
+- In custom messages, only one string per character length is allowed for some reason
 
 CONFIGURATION 
 - Change color of the rain in script.js, by assigning variable "colorrain" a number that corresonds with the color:
